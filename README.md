@@ -4,7 +4,7 @@
 The first thing is cloneing the repository:
 ```sh
 $ git clone https://github.com/MdAshiqurRahmanZayed/task_manager.git
-$ cd KnowledgeKernel
+$ cd task_manager 
 ```
 Create a virtual environment to install dependencies in and activate it (This is for linux User):
 ```sh
