@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+
+     <div class="card">
+          <div class="card-body">
+               <h2 class="card-title">
+                    {{ task.title }}
+               </h2>
+               {% if task.user == request.user %}
+
+               <a href='{% url "TaskUpdateView" task.id %}'>
+                    <div class="btn btn-primary">
+                         Update Post
+                    </div>
+               </a>
+
+               <a href="{% url 'TaskDeleteView' task.id %}"
+                    onclick="return confirm('Are you sure you want to delete?')">
+                    <div class="btn btn-danger">
+                         Delete
+                    </div>
+               </a>
+               {% endif %}
+               <h6>
+                    Due Data:{{task.due_date}}
+                    Priroty:{{task.priority}}
+                    {% if task.is_complete %}
+                    <div class="complate" style="color: green;">
+                         Completed
+                    </div>
+                    {% else %}
+                    <div class="complate" style="color: red;">
+                         Not Completed
+                    </div>
+                    {% endif %}
+
+               </h6>
+               <p class="card-text">{{task.description}}</p>
+
+          </div>
+     </div>
+</div>
+{% comment %} {{task.taskphoto_set.all}} {% endcomment %}
+{% if task.user == request.user %}
+
+<div class="container mt-5">
+
+     <div class="card">
+          <div class="card-body">
+               <h3>
+                    <b>
+                         Create Photo
+                         <a href='{% url "TaskPhotoCreateView" task.id %}'>
+                              <div class="btn btn-primary">
+                                   Create Photo
+                              </div>
+                         </a>
+                    </b>
+               </h3>
+
+
+
+          </div>
+     </div>
+</div>
+{% endif %}
+<div class="container mt-5">
+
+     <div class="card">
+          <div class="card-body">
+               <div class="container">
+
+                    {% if task_photos %}
+                    <h3>There are {{task_photos.count}} photos.</h3>
+                    <ol>
+                         {% for photo in task_photos %}
+                         <li>
+                              <img src="{{ photo.photo.url }}" alt="Task photo" style="height: 100px;width: auto;">
+                              {% if task.user == request.user %}
+                              <a href='{% url "TaskPhotoUpdateView" task.id photo.id %}'>
+                                   <div class="btn btn-primary">
+                                        Update Photo
+                                   </div>
+                              </a>
+                              <a href="{% url 'TaskPhotoDeleteView' task_id=task.id pk=photo.id %}">
+                                   <div class="btn btn-danger">
+                                        Delete
+                                   </div>
+                              </a>
+                              {% endif %}
+
+
+                         </li>
+                         <br>
+                         {% endfor %}
+                    </ol>
+                    {% else %}
+                    <p>No photos available</p>
+                    {% endif %}
+               </div>
+          </div>
+     </div>
+</div>
+{% endblock %}

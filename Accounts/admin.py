@@ -3,6 +3,8 @@ from Accounts.models import *
 from django.contrib.auth.admin import UserAdmin
 
 
+# Include Admin in models
+
 class CustomAccountAdmin(UserAdmin):
     model = Account
     
